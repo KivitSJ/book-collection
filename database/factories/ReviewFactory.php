@@ -20,7 +20,7 @@ class ReviewFactory extends Factory
         return [
             'book_id' => $this->faker->numberBetween(1, 100),
             'name' => $this->faker->name,
-            'review' => $this->faker->sentence,
+            'review' => $this->faker->paragraph(),
         ];
     }
 }

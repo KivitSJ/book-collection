@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
     <nav>
         <router-link :to="{name: 'books.overview'}">Boeken Overzicht</router-link> |

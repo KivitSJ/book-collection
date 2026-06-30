@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        return BookResource::collection(Book::all());
     }
 
     /**
@@ -35,7 +36,7 @@ class BookController extends Controller
         $book = new Book();
 
         $book->title = $validated['title'];
-        $book->description = $validated['description'];
+        $book->summary = $validated['summary'];
 
         $book->save();
         
@@ -67,7 +68,7 @@ class BookController extends Controller
         $book = new Book();
 
         $book->title = $validated['title'];
-        $book->description = $validated['description'];
+        $book->summary = $validated['summary'];
 
         $book->save();
     }

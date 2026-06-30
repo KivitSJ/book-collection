@@ -20,7 +20,7 @@ class BookFactory extends Factory
         return [
             'author_id' => $this->faker->numberBetween(1, 50),
             'title' => $this->faker->words(3, true),
-            'description' => $this->faker->sentence,
+            'summary' => $this->faker->paragraph(),
         ];
     }
 }

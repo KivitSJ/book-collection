@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('author_id');
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('summary')->nullable();
             $table->timestamps();
         });
     }
