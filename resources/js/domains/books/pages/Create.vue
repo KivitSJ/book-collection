@@ -23,3 +23,6 @@
         <Form :book="book" @submit="handleSubmit" />
     </div>
 </template>
+
+<style>
+</style>

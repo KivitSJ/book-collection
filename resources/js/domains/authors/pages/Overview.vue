@@ -5,6 +5,7 @@ fetchAuthors();
 
 </script>
 <template>
+    <h2>Auteur overzicht</h2>
     <table>
         <thead>
             <tr>

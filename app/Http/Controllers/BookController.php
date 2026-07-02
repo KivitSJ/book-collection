@@ -55,16 +55,11 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, string $id)
-    {
-        $validated = $request->validated();
+    public function update(StoreBookRequest $request, Book $book) {
+        $book->update($request->validated());
 
-        $book = new Book();
-
-        $book->title = $validated['title'];
-        $book->summary = $validated['summary'];
-
-        $book->save();
+        $books = Book::all();
+        return BookResource::collection($books);
     }
 
     /**
