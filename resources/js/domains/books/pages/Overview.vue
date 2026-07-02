@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { fetchBooks, getAllBooks } from '../store';
+import { fetchBooks, getAllBooks, deleteBook } from '../store';
 
 fetchBooks();
 
@@ -11,7 +11,7 @@ fetchBooks();
             <tr>
                 <th>Title</th>
                 <th>Summary</th>
-                <th>Options</th>
+                <th colspan="2">Options</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +19,7 @@ fetchBooks();
                 <td>{{ book.title }}</td>
                 <td>{{ book.summary }}</td>
                 <td><RouterLink :to="{ name: 'books.edit', params: { id: book.id } }"><button>Bewerk</button></RouterLink></td>
+                <td><button class="delete" @click="deleteBook(Number(book.id))">🗑️</button></td>
             </tr>
         </tbody>
     </table>

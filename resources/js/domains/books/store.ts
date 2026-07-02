@@ -30,3 +30,8 @@ export const updateBook = async (id: number, updatedBook: Book) => {
     if (!data) return;
     books.value = data.data;
 };
+
+export const deleteBook = async (id: number) => {
+    await axios.delete(`/api/books/${id}`);
+    books.value = books.value.filter(book => book.id !== id);
+};

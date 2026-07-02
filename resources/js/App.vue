@@ -100,4 +100,10 @@ button:hover {
     margin-top: 1vh;
     margin-bottom: 1vh;
 }
+
+.delete {
+    width: min-content;
+    padding: 5px;
+    background-color: red;
+}
 </style>
