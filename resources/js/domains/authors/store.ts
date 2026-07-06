@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { ref, computed } from 'vue';
 import { getBooksByAuthorId } from '../books/store';
+import { deleteRequest, getRequest, postRequest, putRequest } from '../../services/http';
 export interface Author {
     id: number;
     name: string;
@@ -12,13 +12,13 @@ const authors = ref<Author[]>([]);
 export const getAllAuthors = computed<Author[]>(() => authors.value);
 
 export const fetchAuthors = async () => {
-    const {data} = await axios.get('/api/authors');
+    const {data} = await getRequest('/authors');
     if(!data) return
     authors.value = data.data;
 };
 
 export const createAuthor = async (newAuthor: Author) => {
-    const {data} = await axios.post('/api/authors', newAuthor);
+    const {data} = await postRequest('/authors', newAuthor);
     if(!data) return
     authors.value = data.data;
 };
@@ -26,14 +26,14 @@ export const createAuthor = async (newAuthor: Author) => {
 export const getAuthorById = (id: number) => computed(() => authors.value.find(author => author.id == id));
 
 export const updateAuthor = async (id: number, updatedAuthor: Author) => {
-    const { data } = await axios.put(`/api/author/${id}`, updatedAuthor);
+    const { data } = await putRequest(`/authors/${id}`, updatedAuthor);
     if (!data) return;
     authors.value = data.data;
 };
 
 export const deleteAuthor = async (id: number) => {
     try{
-        const result = await axios.delete(`/api/author/${id}`);
+        const result = await deleteRequest(`/authors/${id}`);
         authors.value = authors.value.filter(author => author.id !== id);
         return result.data.message
     } catch(error){
