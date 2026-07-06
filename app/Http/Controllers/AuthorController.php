@@ -68,11 +68,11 @@ class AuthorController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Author $author) {
-        try{
+        if($author->books->empty()){
             $author->delete();
-            return response()->json(['message' => 'Auteur succesvol verwijderd', 'code' => "200"]);
-        } catch(Exception $e) {
-            return response()->json(['message' => 'Boeken nog in overzicht:', 'code' => '500']);
+            return response()->json(['message' => 'Auteur succesvol verwijderd'], 200);
         }
+        return response()->json(['message' => 'Error.'], 500);
+
     }
 }

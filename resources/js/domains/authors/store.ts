@@ -32,11 +32,15 @@ export const updateAuthor = async (id: number, updatedAuthor: Author) => {
 };
 
 export const deleteAuthor = async (id: number) => {
-    const result = await axios.delete(`/api/author/${id}`);
-    if(result.data.code === "200"){
+    try{
+        const result = await axios.delete(`/api/author/${id}`);
         authors.value = authors.value.filter(author => author.id !== id);
         return result.data.message
+    } catch(error){
+        const books = getBooksByAuthorId(id).value.map((item) => item.title);
+        if ( books.length > 0 ) {
+            return "Er zijn nog boeken van deze auteur in het overzicht:\n" + books.join(",\n") + ".";
+        }
+        return "Er is een onverwachte error: " + error;
     }
-    const books = getBooksByAuthorId(id).value.map((item) => item.title);
-    return result.data.message + "\n" + books.join(",\n") + ".";
 };
