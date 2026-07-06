@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ref, computed } from 'vue';
+import { Author, fetchAuthors } from '../authors/store';
 export interface Book {
     id: number;
     title: string;
@@ -22,6 +23,8 @@ export const createBook = async (newBook: Book) => {
     if(!data) return
     books.value = data.data;
 };
+
+export const getBooksByAuthorId = (id: number) => computed(() => books.value.filter(book => book.author_id == id));
 
 export const getBookById = (id: number) => computed(() => books.value.find(book => book.id == id));
 

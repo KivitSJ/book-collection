@@ -6,7 +6,9 @@ use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use App\Http\Resources\AuthorResource;
 use App\Models\Author;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Session\Store;
 
 class AuthorController extends Controller
 {
@@ -29,16 +31,11 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAuthorRequest $request)
-    {
-        $validated = $request->validated();
+    public function store(StoreAuthorRequest $request) {
+        $author = Author::create($request->validated());
 
-        $author = new Author();
-
-        $author->name = $validated['name'];
-        $author->description = $validated['description'];
-
-        $author->save();
+        $books = Author::all();
+        return AuthorResource::collection($books);
     }
 
     /**
@@ -60,23 +57,22 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAuthorRequest $request, string $id)
-    {
-        $validated = $request->validated();
-        
-        $author = new Author();
+    public function update(UpdateAuthorRequest $request, Author $author) {
+        $author->update($request->validated());
 
-        $author->name = $validated['name'];
-        $author->description = $validated['description'];
-
-        $author->save();
+        $author = Author::all();
+        return AuthorResource::collection($author);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Author $author) {
+        try{
+            $author->delete();
+            return response()->json(['message' => 'Auteur succesvol verwijderd', 'code' => "200"]);
+        } catch(Exception $e) {
+            return response()->json(['message' => 'Boeken nog in overzicht:', 'code' => '500']);
+        }
     }
 }
