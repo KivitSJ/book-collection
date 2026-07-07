@@ -73,6 +73,5 @@ class AuthorController extends Controller
             return response()->json(['message' => 'Auteur succesvol verwijderd'], 200);
         }
         return response()->json(['message' => 'Error.'], 500);
-
     }
 }

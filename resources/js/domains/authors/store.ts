@@ -1,26 +1,29 @@
 import { ref, computed } from 'vue';
 import { getBooksByAuthorId } from '../books/store';
 import { deleteRequest, getRequest, postRequest, putRequest } from '../../services/http';
+import { storeModuleFactory } from '../../services/store';
 export interface Author {
     id: number;
     name: string;
     description: string;
 }
 
-const authors = ref<Author[]>([]);
+const authorStore = storeModuleFactory('authors');
 
-export const getAllAuthors = computed<Author[]>(() => authors.value);
+const authors = authorStore.getters.all;
+
+export const getAllAuthors = authorStore.getters.all;
 
 export const fetchAuthors = async () => {
     const {data} = await getRequest('/authors');
     if(!data) return
-    authors.value = data.data;
+    authorStore.setters.setAll = data.data;
 };
 
 export const createAuthor = async (newAuthor: Author) => {
     const {data} = await postRequest('/authors', newAuthor);
     if(!data) return
-    authors.value = data.data;
+    authorStore.setters.setAll = data.data;
 };
 
 export const getAuthorById = (id: number) => computed(() => authors.value.find(author => author.id == id));
