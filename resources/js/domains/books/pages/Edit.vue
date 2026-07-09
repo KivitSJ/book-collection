@@ -18,8 +18,8 @@ const handleSubmit = async (data: Book) => {
 
 </script>
 <template>
-    <div>
-        <h2>Boek bewerken</h2>
+    <h2>Boek bewerken</h2>
+    <div class="container">
         <Form v-if="book" :book="book" @submit="handleSubmit" />
     </div>
 </template>

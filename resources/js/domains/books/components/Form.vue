@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { fetchAuthors, getAllAuthors } from '../../authors/store';
+import FormError from '../../../components/FormError.vue';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
 
 fetchAuthors();
 
@@ -17,24 +19,65 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit">
-        <div class="formelement">
-            <label>Titel:</label>
-            <input v-model="form.title" type="text" required />
-        </div>
-        <div class="formelement">
-            <label>Samenvatting:</label>
-            <textarea v-model="form.summary" required></textarea>
-        </div>
-        <div class="formelement">
-            <label>Auteur:</label>
-            <select v-model="form.author_id" required>
-                <option v-for="author in getAllAuthors" :key="author.id" :value="author.id">
-                    {{ author.name }}
-                </option>
-            </select>           
-        </div>
-
-        <button type="submit">Opslaan</button>
-    </form>
+    <form @submit.prevent="handleSubmit" id="bookform"></form>
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <td colspan="3"><ErrorMessage /></td>
+                </tr>
+                <tr>
+                    <td><label>Titel:</label></td>
+                    <td><input id="title" v-model="form.title" type="text" form="bookform" /></td>
+                    <td><FormError name="title" /></td>
+                </tr>
+                <tr>
+                    <td><label>Samenvatting:</label></td>
+                    <td><textarea id="summary" v-model="form.summary" form="bookform"></textarea></td>
+                    <td><FormError name="summary" /></td>
+                </tr>
+                <tr>
+                    <td><label>Auteur:</label></td>
+                    <td>
+                        <select v-model="form.author_id" form="bookform" >
+                            <option id="author" v-for="author in getAllAuthors" :key="author.id" :value="author.id">
+                                {{ author.name }}
+                            </option>
+                        </select>      
+                    </td>
+                    <td><FormError name="author" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="submitbutton"><button type="submit" form="bookform">Opslaan</button></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
+
+<style scoped>
+.submitbutton {
+    display: flex;
+    justify-content: end;
+}
+
+div {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(250, 250, 250);
+}
+
+table {
+    width: 70%;
+}
+
+table, tbody, tr, td, form {
+    border-collapse: collapse;
+    border: none;
+    text-align: right;
+    vertical-align: top;
+}
+</style>

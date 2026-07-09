@@ -24,28 +24,21 @@ h2 {
     font-weight: bold;
 }
 
-table {
-    border-collapse: collapse;
+.container {
     width: 60vw;
-}
-
-form {
-    width: 60vw;
-    border: 1px solid rgb(190, 190, 190);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: rgb(250, 250, 250);
 }
 
+table {
+    border-collapse: collapse;
+}
+
 input, textarea, select {
+    width: 100%;
     border: 2px solid rgb(160, 200, 25);
-    min-height: 2vh;
     padding: 0.5rem;
     border-radius: 5px;
     background-color: white;
-    width: 400px;
 }
 
 label {
@@ -61,23 +54,13 @@ th {
     background-color: rgb(0, 87, 128);
 }
 
-tr {
-    background-color: rgb(250, 250, 250)
-}
-
-tr:hover {
+.overviewrow:hover {
     background-color: rgb(245, 245, 245);
 }
+
 td, th{
     border: 1px solid rgb(190, 190, 190);
     padding: 2px;
-}
-
-button {
-    background-color: rgb(160, 200, 25);
-}
-button:hover {
-    background-color: rgb(140, 190, 25);
 }
 
 button {
@@ -96,7 +79,7 @@ button:hover {
 .formelement {
     display: flex;
     width: 70%;
-    justify-content: space-between;
+    justify-content:space-between;
     margin-top: 1vh;
     margin-bottom: 1vh;
 }

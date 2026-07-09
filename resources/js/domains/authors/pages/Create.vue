@@ -17,11 +17,8 @@
     };
 </script>
 <template>
-    <div>
-        <h2>Nieuwe auteur toevoegen</h2>
+    <h2>Nieuwe auteur toevoegen</h2>
+    <div class="container">
         <Form :author="author" @submit="handleSubmit" />
     </div>
 </template>
-
-<style>
-</style>

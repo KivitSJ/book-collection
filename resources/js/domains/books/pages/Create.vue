@@ -18,11 +18,8 @@
     };
 </script>
 <template>
-    <div>
-        <h2>Nieuw boek toevoegen</h2>
+    <h2>Nieuw boek toevoegen</h2>
+    <div class="container">
         <Form :book="book" @submit="handleSubmit" />
     </div>
 </template>
-
-<style>
-</style>
