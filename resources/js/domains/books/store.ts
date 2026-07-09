@@ -5,7 +5,7 @@ export type Book = Record<string, unknown> & {
     id?: number;
     title: string;
     summary: string;
-    author_id: number;
+    author_id: number | null;
 }
 
 const bookStore = storeModuleFactory('books');
@@ -32,4 +32,4 @@ export const deleteBook = async (id: number) => {
         await bookStore.actions.delete(id);
 };
 
-export const getBookByAuthorId = computed(() => bookStore.getters)
+export const getBooksByAuthorId = (id: number) => computed(() => Object.entries(bookStore.getters.all.value).filter((book) => book[1].author_id == id).map((book) => book[1].title));

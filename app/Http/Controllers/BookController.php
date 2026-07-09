@@ -29,8 +29,9 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UpdateBookRequest $request) {
-        $book = Book::create($request->validated());
+    public function store(StoreBookRequest $request) {
+        $validated = $request->validated();
+        Book::create($validated);
 
         $books = Book::all();
         return BookResource::collection($books);

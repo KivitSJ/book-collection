@@ -24,7 +24,7 @@ class StoreAuthorRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'description' => 'nullable',
+            'description' => 'nullable'
         ];
     }
 }

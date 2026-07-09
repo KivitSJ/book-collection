@@ -33,9 +33,9 @@ export const deleteAuthor = async (id: number) => {
         const result = await authorStore.actions.delete(id);
         return result.data.message
     } catch(error){
-        const books = getBooksByAuthorId(id).value.map((item: Book) => item.title);
-        if ( books.length > 0 ) {
-            return "Er zijn nog boeken van deze auteur in het overzicht:\n" + books.join(",\n") + ".";
+        const books = getBooksByAuthorId(id);
+        if ( books.value.length > 0 ) {
+            return "Er zijn nog boeken van deze auteur in het overzicht:\n" + books.value.join(",\n") + ".";
         }
         return "Er is een onverwachte error: " + error;
     }

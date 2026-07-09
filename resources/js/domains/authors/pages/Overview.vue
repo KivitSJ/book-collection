@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { fetchAuthors, getAllAuthors, deleteAuthor, getAuthorById } from '../store';
-import { fetchBooks } from '../../books/store';
+import { fetchBooks, getBooksByAuthorId } from '../../books/store';
 
 fetchAuthors();
 fetchBooks();
@@ -12,12 +12,13 @@ const handleDelete = async (id: number) => {
 
 </script>
 <template>
-    <h2>Auteur overzicht</h2>
+    <h2>Auteuren overzicht</h2>
     <table>
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Summary</th>
+                <th>Naam</th>
+                <th>Beschrijving</th>
+                <th>Boeken</th>
                 <th colspan="2">Options</th>
             </tr>
         </thead>
@@ -25,6 +26,7 @@ const handleDelete = async (id: number) => {
             <tr v-for="author in getAllAuthors" :key="author.id">
                 <td>{{ author.name }}</td>
                 <td>{{ author.description }}</td>
+                <td>{{getBooksByAuthorId(author.id).value.join(", ")}}.</td>
                 <td><RouterLink :to="{ name: 'authors.edit', params: { id: author.id } }"><button>Bewerk</button></RouterLink></td>
                 <td><button class="delete" @click="handleDelete(author.id)">🗑️</button></td>
             </tr>

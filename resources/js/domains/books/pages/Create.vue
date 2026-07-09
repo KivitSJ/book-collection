@@ -6,7 +6,7 @@
 
     const router = useRouter();
 
-    const book = ref({
+    const book = ref<Book>({
         title: '',
         summary: '',
         author_id: null

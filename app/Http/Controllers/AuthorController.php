@@ -32,7 +32,8 @@ class AuthorController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreAuthorRequest $request) {
-        $author = Author::create($request->validated());
+        $validated = $request->validated();
+        Author::create($validated);
 
         $books = Author::all();
         return AuthorResource::collection($books);
