@@ -1,46 +1,39 @@
-import { ref, computed } from 'vue';
-import { getBooksByAuthorId } from '../books/store';
-import { deleteRequest, getRequest, postRequest, putRequest } from '../../services/http';
+import { Book, getBooksByAuthorId } from '../books/store';
 import { storeModuleFactory } from '../../services/store';
-export interface Author {
-    id: number;
+import { computed } from 'vue';
+
+export type Author = Record<string, unknown> & {
+    id?: number;
     name: string;
     description: string;
 }
 
 const authorStore = storeModuleFactory('authors');
 
-const authors = authorStore.getters.all;
 
-export const getAllAuthors = authorStore.getters.all;
+export const getAllAuthors = authorStore.getters.all.value;
 
 export const fetchAuthors = async () => {
-    const {data} = await getRequest('/authors');
-    if(!data) return
-    authorStore.setters.setAll = data.data;
+    return authorStore.actions.getAll();
 };
 
 export const createAuthor = async (newAuthor: Author) => {
-    const {data} = await postRequest('/authors', newAuthor);
-    if(!data) return
-    authorStore.setters.setAll = data.data;
+    await authorStore.actions.create(newAuthor);
 };
 
-export const getAuthorById = (id: number) => computed(() => authors.value.find(author => author.id == id));
+export const getAuthorById = (id: number) => authorStore.getters.getById(id);
+
 
 export const updateAuthor = async (id: number, updatedAuthor: Author) => {
-    const { data } = await putRequest(`/authors/${id}`, updatedAuthor);
-    if (!data) return;
-    authors.value = data.data;
+    await authorStore.actions.update(id, updatedAuthor)
 };
 
 export const deleteAuthor = async (id: number) => {
     try{
-        const result = await deleteRequest(`/authors/${id}`);
-        authors.value = authors.value.filter(author => author.id !== id);
+        const result = await authorStore.actions.delete(id);
         return result.data.message
     } catch(error){
-        const books = getBooksByAuthorId(id).value.map((item) => item.title);
+        const books = getBooksByAuthorId(id).value.map((item: Book) => item.title);
         if ( books.length > 0 ) {
             return "Er zijn nog boeken van deze auteur in het overzicht:\n" + books.join(",\n") + ".";
         }

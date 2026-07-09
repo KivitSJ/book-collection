@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { fetchAuthors, getAllAuthors, deleteAuthor, getAuthorById } from '../store';
-import { fetchBooks, getBooksByAuthorId } from '../../books/store';
+import { fetchBooks } from '../../books/store';
 
 fetchAuthors();
 fetchBooks();
