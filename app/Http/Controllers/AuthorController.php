@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateAuthorRequest;
 use App\Http\Resources\AuthorResource;
 use App\Models\Author;
 use Exception;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 
@@ -69,10 +70,11 @@ class AuthorController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Author $author) {
-        if($author->books->empty()){
-            $author->delete();
-            return response()->json(['message' => 'Auteur succesvol verwijderd'], 200);
+        if($author->books()->exists()){
+            throw new HttpResponseException(response()->json([
+                'message' => 'Deze auteur kan niet worden verwijderd omdat er nog boeken aan gekoppeld zijn.'
+            ], 422));
         }
-        return response()->json(['message' => 'Error.'], 500);
+        $author->delete();
     }
 }

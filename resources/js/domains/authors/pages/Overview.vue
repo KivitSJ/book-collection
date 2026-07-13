@@ -1,19 +1,20 @@
 <script lang="ts" setup>
 import { fetchAuthors, getAllAuthors, deleteAuthor, getAuthorById } from '../store';
 import { fetchBooks, getBooksByAuthorId } from '../../books/store';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
 
 fetchAuthors();
 fetchBooks();
 
 const handleDelete = async (id: number) => {
     const result = await deleteAuthor(id);
-    alert(result);
 }
 
 </script>
 <template>
     <h2>Auteuren overzicht</h2>
     <div class="container">
+        <ErrorMessage/>
         <table>
             <thead>
                 <tr>

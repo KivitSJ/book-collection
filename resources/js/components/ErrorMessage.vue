@@ -3,13 +3,13 @@ import { getMessage } from '../services/error';
 </script>
 
 <template>
-    <div v-if="getMessage">
+    <div class="error" v-if="getMessage">
         {{ getMessage }}
     </div>
 </template>
 
 <style scoped>
-div {
+.error {
     background-color: red;
     border-radius: 10px;
     padding: 0.5rem;
