@@ -21,6 +21,7 @@ class ReviewFactory extends Factory
             'book_id' => $this->faker->numberBetween(1, 100),
             'name' => $this->faker->name,
             'review' => $this->faker->paragraph(),
+            'stars' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

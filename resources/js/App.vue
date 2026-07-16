@@ -15,17 +15,20 @@
 body {
     display: flex;
     justify-content: center;
-    text-align: center;
 }
 
 h2 {
     margin: 10px;
     font-size: larger;
     font-weight: bold;
+    text-align: center;
 }
 
 .container {
-    width: 60vw;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
     background-color: rgb(250, 250, 250);
 }
 

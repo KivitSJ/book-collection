@@ -2,16 +2,19 @@ import { Book, getBooksByAuthorId } from '../books/store';
 import { storeModuleFactory } from '../../services/store';
 import { computed } from 'vue';
 
-export type Author = Record<string, unknown> & {
-    id?: number;
+export interface AuthorType extends Record<string, unknown> {
     name: string;
     description: string;
 }
 
-const authorStore = storeModuleFactory('authors');
+export interface Author extends AuthorType {
+    id:number;
+}
+
+const authorStore = storeModuleFactory<Author>('authors');
 
 
-export const getAllAuthors = authorStore.getters.all.value;
+export const getAllAuthors = computed(() => authorStore.getters.all.value);
 
 export const fetchAuthors = async () => {
     return authorStore.actions.getAll();

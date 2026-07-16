@@ -6,7 +6,7 @@ export const storeModuleFactory = <T extends Record<string, unknown> & {id:numbe
     const state = ref<Record<number, T>>({});
 
     const getters = {
-        all: computed(() => state.value),
+        all: computed(() => Object.values(state.value)),
         getById: (id:number) => computed(() => state.value[id])
     };
 

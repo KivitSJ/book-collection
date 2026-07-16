@@ -2,7 +2,9 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Form from '../components/Form.vue';
-import { Author, fetchAuthors, getAuthorById, updateAuthor } from '../store';
+import { fetchAuthors, getAuthorById, updateAuthor } from '../store';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
+import type { Author } from '../store';
 
 const route = useRoute();
 const router = useRouter();
@@ -18,7 +20,8 @@ const handleSubmit = async (data: Author) => {
 
 </script>
 <template>
-    <h2>Boek bewerken</h2>
+    <h2>Auteur bewerken</h2>
+    <ErrorMessage />
     <div class="container">
         <Form v-if="author" :author="author" @submit="handleSubmit" />
     </div>

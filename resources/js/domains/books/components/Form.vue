@@ -3,19 +3,21 @@ import { ref } from 'vue';
 import { fetchAuthors, getAllAuthors } from '../../authors/store';
 import FormError from '../../../components/FormError.vue';
 import ErrorMessage from '../../../components/ErrorMessage.vue';
+import { BookType } from '../store';
 
 fetchAuthors();
 
-const props = defineProps({ book: Object });
+const props = defineProps<{ 
+    book: BookType
+}>();
 
 const emit = defineEmits(['submit']);
 
 const form = ref({ ...props.book });
 
 const handleSubmit = () => {
-    console.log(form)
     emit('submit', form.value)
-    };
+};
 </script>
 
 <template>
@@ -24,22 +26,19 @@ const handleSubmit = () => {
         <table>
             <tbody>
                 <tr>
-                    <td colspan="3"><ErrorMessage /></td>
-                </tr>
-                <tr>
-                    <td><label>Titel:</label></td>
+                    <td><label for="title">Titel:</label></td>
                     <td><input id="title" v-model="form.title" type="text" form="bookform" /></td>
                     <td><FormError name="title" /></td>
                 </tr>
                 <tr>
-                    <td><label>Samenvatting:</label></td>
+                    <td><label for="summary">Samenvatting:</label></td>
                     <td><textarea id="summary" v-model="form.summary" form="bookform"></textarea></td>
                     <td><FormError name="summary" /></td>
                 </tr>
                 <tr>
-                    <td><label>Auteur:</label></td>
+                    <td><label for="author">Auteur:</label></td>
                     <td>
-                        <select v-model="form.author_id" form="bookform" >
+                        <select id="author" v-model="form.author_id" form="bookform" >
                             <option id="author" v-for="author in getAllAuthors" :key="author.id" :value="author.id">
                                 {{ author.name }}
                             </option>

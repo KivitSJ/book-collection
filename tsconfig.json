@@ -4,6 +4,7 @@
         "module": "esnext",
         "target": "esnext",
         "types": ["vite/client", "node"],
+        "ignoreDeprecations": "6.0",
         "moduleResolution": "node",
         "lib": ["es2017", "dom"],
         "allowUnreachableCode": false,

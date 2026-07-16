@@ -5,6 +5,7 @@ import { fetchAuthors, getAuthorById } from '../../authors/store';
 fetchBooks();
 fetchAuthors();
 
+
 </script>
 <template>
     <h2>Boeken Overzicht</h2>
@@ -12,14 +13,14 @@ fetchAuthors();
         <table>
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Summary</th>
+                    <th>Titel</th>
+                    <th>Omschrijving</th>
                     <th>Auteur</th>
                     <th colspan="2">Options</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="overviewrow" v-for="book in getAllBooks" :key="book.id">
+                <tr class="overviewrow" v-for="book in getAllBooks">
                     <td>{{ book.title }}</td>
                     <td>{{ book.summary }}</td>
                     <td>{{ getAuthorById(Number(book.author_id)).value.name }}</td>

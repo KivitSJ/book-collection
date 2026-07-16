@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Http\Resources\ReviewResource;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        return ReviewResource::collection(Review::all());
     }
 
     /**
@@ -31,13 +32,10 @@ class ReviewController extends Controller
     public function store(StoreReviewRequest $request)
     {
         $validated = $request->validated();
+        Review::create($validated);
 
-        $review = new Review();
-
-        $review->title = $validated['title'];
-        $review->description = $validated['description'];
-
-        $review->save();
+        $reviews = Review::all();
+        return ReviewResource::collection($reviews);
     }
 
     /**

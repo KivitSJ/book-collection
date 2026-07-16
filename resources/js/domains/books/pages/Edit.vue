@@ -1,15 +1,16 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Form from '../components/Form.vue';
-import { Book, fetchBooks, getBookById, updateBook } from '../store';
+import { fetchBooks, getBookById, updateBook } from '../store';
+import type { Book } from '../store';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
 
 const route = useRoute();
 const router = useRouter();
 
 fetchBooks();
 
-const book = getBookById(Number(route.params.id));
+const book = getBookById(Number(route.params.id)).value;
 
 const handleSubmit = async (data: Book) => {
     await updateBook(Number(route.params.id), data);
@@ -19,6 +20,7 @@ const handleSubmit = async (data: Book) => {
 </script>
 <template>
     <h2>Boek bewerken</h2>
+    <ErrorMessage />
     <div class="container">
         <Form v-if="book" :book="book" @submit="handleSubmit" />
     </div>

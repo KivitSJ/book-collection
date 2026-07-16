@@ -1,17 +1,19 @@
 
 import { computed } from 'vue';
 import { storeModuleFactory } from '../../services/store';
-export type Book = Record<string, unknown> & {
-    id?: number;
+export interface BookType extends Record<string, unknown> {
     title: string;
     summary: string;
     author_id: number | null;
 }
+export interface Book extends BookType {
+    id:number;
+}
 
-const bookStore = storeModuleFactory('books');
+const bookStore = storeModuleFactory<Book>('books');
 
 
-export const getAllBooks = bookStore.getters.all;
+export const getAllBooks = computed(() => bookStore.getters.all.value );
 
 export const fetchBooks = async () => {
     return bookStore.actions.getAll();
@@ -32,4 +34,4 @@ export const deleteBook = async (id: number) => {
         await bookStore.actions.delete(id);
 };
 
-export const getBooksByAuthorId = (id: number) => computed(() => Object.entries(bookStore.getters.all.value).filter((book) => book[1].author_id == id).map((book) => book[1].title));
+export const getBooksByAuthorId = (id: number) => computed(() => getAllBooks.value.filter((item) => item.author_id == id));

@@ -3,10 +3,12 @@ import { ref } from 'vue';
 import { fetchAuthors, getAllAuthors } from '../../authors/store';
 import FormError from '../../../components/FormError.vue';
 import ErrorMessage from '../../../components/ErrorMessage.vue';
-
+import type { Author, AuthorType } from '../store';
 fetchAuthors();
 
-const props = defineProps({ author: Object });
+const props = defineProps<{
+    author: AuthorType;
+}>();
 
 const emit = defineEmits(['submit']);
 
@@ -21,15 +23,12 @@ const handleSubmit = () => emit('submit', form.value);
         <table>
             <tbody>
                 <tr>
-                    <td colspan="3"><ErrorMessage /></td>
-                </tr>
-                <tr>
-                    <td><label form="authorform">Naam:</label></td>
+                    <td><label for="name" form="authorform">Naam:</label></td>
                     <td><input id="name" v-model="form.name" type="text" form="authorform"/></td>
                     <td><FormError name="name" /></td>
                 </tr>                              
                 <tr>
-                    <td><label form="authorform">Bescrijving:</label></td>
+                    <td><label for="description" form="authorform">Bescrijving:</label></td>
                     <td><textarea id="description" v-model="form.description" form="authorform"></textarea></td>
                     <td></td>
                 </tr>                

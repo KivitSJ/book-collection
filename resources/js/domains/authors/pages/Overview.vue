@@ -1,14 +1,16 @@
 <script lang="ts" setup>
 import { fetchAuthors, getAllAuthors, deleteAuthor, getAuthorById } from '../store';
-import { fetchBooks, getBooksByAuthorId } from '../../books/store';
+import { fetchBooks } from '../../books/store';
 import ErrorMessage from '../../../components/ErrorMessage.vue';
 
 fetchAuthors();
 fetchBooks();
 
 const handleDelete = async (id: number) => {
-    const result = await deleteAuthor(id);
+    await deleteAuthor(id);
 }
+
+console.log(getAllAuthors)
 
 </script>
 <template>
@@ -28,7 +30,7 @@ const handleDelete = async (id: number) => {
                 <tr class="overviewrow" v-for="author in getAllAuthors" :key="author.id">
                     <td>{{ author.name }}</td>
                     <td>{{ author.description }}</td>
-                    <td>{{getBooksByAuthorId(author.id).value.join(", ")}}.</td>
+                    <!-- <td>{{getBooksByAuthorId(author.id).value.join(", ")}}.</td> -->
                     <td><RouterLink :to="{ name: 'authors.edit', params: { id: author.id } }"><button>Bewerk</button></RouterLink></td>
                     <td><button class="delete" @click="handleDelete(author.id)">🗑️</button></td>
                 </tr>

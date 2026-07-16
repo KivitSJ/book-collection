@@ -24,7 +24,9 @@ class StoreReviewRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|max:255',
-            'review' => 'nullable',
+            'book_id' => 'required|integer',
+            'stars' => 'required|integer|between:1,5',
+            'review' => 'required',
         ];
     }
 }
